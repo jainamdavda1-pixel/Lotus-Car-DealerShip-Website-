@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lotus Cars</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* VARIABLES & RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --gold: #c8a96e;
+  --white: #ffffff;
+  --muted: #888;
+  --panel: #111;
+  --border: #1e1e1e;
+  --carbon: #0a0a0a;
+  --offblack: #080808;
+  --sport: #e63946;
+  --luxury: #c8a96e;
+  --mid: #4ecdc4;
+}
+
+body {
+  background-color: black;
+  color: #fcfbf9;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* NAVIGATION */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 60px;
+  background: linear-gradient(to bottom, rgba(5,5,5,0.98), transparent);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--white); }
+.nav-links { display: flex; gap: 40px; }
+.nav-links a {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  border: 1px solid var(--gold);
+  padding: 8px 20px;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('imagescars/back.jpeg') center/cover no-repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 60px;
+}
+.hero-content {
+  color: white;
+  max-width: 600px;
+}
+.hero-tag {
+  font-family: 'Rajdhani', sans-serif;
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.hero h1 {
+  font-size: 80px;
+  font-weight: bold;
+  line-height: 1;
+  font-family: 'Bebas Neue', sans-serif;
+}
+.hero h1 span { color: var(--gold); }
+.hero p {
+  margin: 20px 0 40px;
+  color: #ccc;
+  font-size: 18px;
+  line-height: 1.6;
+}
+.hero-actions { display: flex; gap: 20px; }
+.hero-btn {
+  display: inline-block;
+  padding: 15px 35px;
+  background: var(--gold);
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.hero-btn-outline {
+  display: inline-block;
+  padding: 15px 35px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: bold;
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* STATS BAR */
+.stats-bar {
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 32px 60px;
+  display: flex; justify-content: space-around;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* COLLECTION SECTION */
+.section { padding: 100px 60px; background: #050505; }
+.section-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 60px;
+}
+.section-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+.section-link {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 12px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold);
+  text-decoration: none;
+}
+
+/* CATEGORY TABS */
+.cat-tabs {
+  display: flex; gap: 0;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+.cat-tab {
+  background: none; border: none;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700; font-size: 13px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted);
+  padding: 16px 30px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.3s;
+}
+.cat-tab.active { color: var(--white); border-bottom-color: var(--gold); }
+.cat-tab[data-cat="sport"].active { border-bottom-color: var(--sport); color: var(--sport); }
+.cat-tab[data-cat="luxury"].active { border-bottom-color: var(--luxury); color: var(--luxury); }
+.cat-tab[data-cat="mid"].active { border-bottom-color: var(--mid); color: var(--mid); }
+
+/* HORIZONTAL GRID & PANELS */
+.panel { display: none; }
+.panel.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
+
+.grid { 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 30px;
+}
+
+/* CAR CARDS */
+.car-card {
+  width: 100%; 
+  background-color: #111;
+  border: 1px solid #222;
+  display: block; 
+  text-decoration: none; 
+  color: #fff; 
+  transition: border-color 0.3s ease;
+}
+.car-card:hover { border-color: var(--gold); }
+.card-art { width: 100%; height: 260px; overflow: hidden; }
+.card-art img { 
+  width: 100%; height: 100%; 
+  object-fit: cover; 
+  transition: transform 0.6s ease; 
+}
+.car-card:hover .card-art img { transform: scale(1.05); }
+.card-info { padding: 25px; display: flex; justify-content: space-between; align-items: center; }
+.card-name { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 1px; }
+.card-price { font-family: 'Rajdhani', sans-serif; font-size: 18px; color: var(--gold); font-weight: 700; }
+
+/* FEATURES/ABOUT */
+.features {
+  padding: 100px 60px;
+  background: var(--panel);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.feature-block {
+  background: var(--carbon);
+  padding: 60px;
+  position: relative;
+  overflow: hidden;
+}
+.feature-block::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--gold);
+  transition: height 0.5s ease;
+}
+.feature-block:hover::before { height: 100%; }
+.feature-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 80px;
+  color: var(--border);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.feature-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 22px; font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.feature-desc { font-size: 14px; line-height: 1.8; color: var(--muted); max-width: 340px; }
+
+/* FOOTER */
+footer {
+  background: var(--offblack);
+  border-top: 1px solid var(--border);
+  padding: 60px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+}
+.footer-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px; letter-spacing: 6px;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.footer-brand span { color: var(--white); }
+.footer-desc { font-size: 13px; line-height: 1.8; color: var(--muted); max-width: 280px; }
+.footer-heading {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 20px;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--white); }
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">LOTUS<span> CARS</span></a>
+  <div class="nav-links">
+    <a href="#collection">Collection</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a class="nav-cta" href="#collection">View Inventory</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Est. 1996 — Mumbai, India</div>
+    <h1>DRIVE <br><span>BEYOND</span> <br>LIMITS</h1>
+    <p>Lotus Cars curates the world's finest automobiles — from track-ready sports machines to handcrafted luxury icons. Your perfect car awaits.</p>
+    <div class="hero-actions">
+      <a href="#collection" class="hero-btn">Explore Collection</a>
+      <a href="#about" class="hero-btn-outline">Our Story</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">120+</div><div class="stat-label">Cars in Stock</div></div>
+  <div class="stat"><div class="stat-num">18</div><div class="stat-label">Brands</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Categories</div></div>
+  <div class="stat"><div class="stat-num">2400+</div><div class="stat-label">Happy Clients</div></div>
+</div>
+
+<section class="section" id="collection">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Our Fleet</div>
+      <h2 class="section-title">THE COLLECTION</h2>
+    </div>
+    <a class="section-link" href="#">View All Cars →</a>
+  </div>
+
+  <div class="cat-tabs">
+    <button class="cat-tab active" data-cat="sport">Sport</button>
+    <button class="cat-tab" data-cat="luxury">Luxury</button>
+    <button class="cat-tab" data-cat="mid">Mid-Range</button>
+  </div>
+
+  <div class="panel active" id="sport">
+    <div class="grid">
+      <a class="car-card" href="carimp.html?car=lotus-vortex-rs">
+        <div class="card-art"><img src="imagescars/vortex.png" alt="Vortex RS"></div>
+        <div class="card-info">
+          <div class="card-name">Vortex RS</div>
+          <div class="card-price">₹7.5 Cr</div>
+        </div>
+      </a>
+      <a class="car-card" href="carimp.html?car=lotus-zenith-gt">
+        <div class="card-art"><img src="imagescars/zenithcg.png" alt="Zenith GT"></div>
+        <div class="card-info">
+          <div class="card-name">Zenith GT</div>
+          <div class="card-price">₹3.9 Cr</div>
+        </div>
+      </a>
+      <a class="car-card" href="carimp.html?car=lotus-apex-s">
+        <div class="card-art"><img src="imagescars/apexc.png" alt="Apex S"></div>
+        <div class="card-info">
+          <div class="card-name">Apex S</div>
+          <div class="card-price">₹2.3 Cr</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="panel" id="luxury">
+    <div class="grid">
+      <a class="car-card" href="carimp.html?car=lotus-celestia">
+        <div class="card-art"><img src="imagescars/celestiacg.png" alt="Celestia"></div>
+        <div class="card-info">
+          <div class="card-name">Celestia</div>
+          <div class="card-price">₹9.5 Cr</div>
+        </div>
+      </a>
+      <a class="car-card" href="carimp.html?car=lotus-imperiale">
+        <div class="card-art"><img src="imagescars/imperialecg.png" alt="Imperiale"></div>
+        <div class="card-info">
+          <div class="card-name">Imperiale</div>
+          <div class="card-price">₹3.9 Cr</div>
+        </div>
+      </a>
+      <a class="car-card" href="carimp.html?car=lotus-aurum">
+        <div class="card-art"><img src="imagescars/aurumcg.png" alt="Aurum"></div>
+        <div class="card-info">
+          <div class="card-name">Aurum</div>
+          <div class="card-price">₹2.6 Cr</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="panel" id="mid">
+    <div class="grid">
+      <a class="car-card" href="carimp.html?car=lotus-stratos">
+        <div class="card-art"><img src="imagescars/Stratosccg.png" alt="Stratos"></div>
+        <div class="card-info">
+          <div class="card-name">Stratos</div>
+          <div class="card-price">₹1.4 Cr</div>
+        </div>
+      </a>
+      <a class="car-card" href="carimp.html?car=lotus-crest">
+        <div class="card-art"><img src="imagescars/crestcg.png" alt="Crest"></div>
+        <div class="card-info">
+          <div class="card-name">Crest</div>
+          <div class="card-price">₹1.7 Cr</div>
+        </div>
+      </a>
+      <a class="car-card" href="carimp.html?car=lotus-rally-r">
+        <div class="card-art"><img src="imagescars/rallyrcg.png" alt="Rally R"></div>
+        <div class="card-info">
+          <div class="card-name">Rally R</div>
+          <div class="card-price">₹88 L</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="about">
+  <div class="feature-block">
+    <div class="feature-num">01</div>
+    <div class="feature-title">Handpicked Inventory</div>
+    <p class="feature-desc">Every vehicle in our showroom is personally inspected by our experts and sourced from trusted manufacturers worldwide.</p>
+  </div>
+  <div class="feature-block">
+    <div class="feature-num">02</div>
+    <div class="feature-title">White Glove Service</div>
+    <p class="feature-desc">From first contact to final delivery, our concierge team ensures every detail of your purchase is seamless and unforgettable.</p>
+  </div>
+  <div class="feature-block">
+    <div class="feature-num">03</div>
+    <div class="feature-title">Bespoke Financing</div>
+    <p class="feature-desc">Tailored financial solutions for every budget. We partner with India's leading institutions to get you behind the wheel faster.</p>
+  </div>
+  <div class="feature-block">
+    <div class="feature-num">04</div>
+    <div class="feature-title">After-Sales Care</div>
+    <p class="feature-desc">Certified technicians, genuine parts, and comprehensive warranties keep your prized possession performing at its peak.</p>
+  </div>
+</section>
+
+<footer id="contact">
+  <div>
+    <div class="footer-brand">LOTUS<span> CARS</span></div>
+    <p class="footer-desc">Mumbai's most prestigious automobile destination. Where passion meets performance.</p>
+  </div>
+  <div>
+    <div class="footer-heading">Collection</div>
+    <ul class="footer-links">
+      <li><a href="#">Sports Cars</a></li>
+      <li><a href="#">Luxury Cars</a></li>
+      <li><a href="#">Mid-Range</a></li>
+      <li><a href="#">New Arrivals</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-heading">Company</div>
+    <ul class="footer-links">
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Careers</a></li>
+      <li><a href="#">Press</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-heading">Contact</div>
+    <ul class="footer-links">
+      <li><a href="#">Lower Parel, Mumbai</a></li>
+      <li><a href="#">+91 98200 00000</a></li>
+      <li><a href="#">hello@lotuscars.in</a></li>
+      <li><a href="#">Mon–Sat, 10–7pm</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.cat-tab').forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll('.cat-tab, .panel').forEach(el => el.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.cat).classList.add('active');
+    };
+  });
+</script>
+</body>
+</html>

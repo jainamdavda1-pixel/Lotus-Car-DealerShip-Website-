@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LOTUS CARS — Model Detail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* RESET & BASE */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #050505;
+      color: #f4f2ee;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* NAVIGATION */
+    nav { 
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 60px; background: rgba(5,5,5,0.9);
+    }
+    .nav-logo { 
+      font-family: 'Bebas Neue', sans-serif; font-size: 28px; 
+      letter-spacing: 6px; color: #c8a96e; text-decoration: none;
+    }
+    .nav-logo span { color: #f4f2ee; }
+    .nav-back { 
+      font-family: 'Rajdhani', sans-serif; font-size: 12px; 
+      letter-spacing: 3px; text-transform: uppercase; 
+      color: #888; text-decoration: none;
+    }
+
+    /* HERO */
+    .car-hero { min-height: 100vh; display: flex; flex-wrap: wrap; }
+    .car-hero-left { 
+      flex: 0 0 35%; min-width: 200px; display: flex; flex-direction: column; 
+      justify-content: center; padding: 120px 50px 60px; background: #111214; 
+    }
+    .car-hero-right { flex: 1; min-width: 300px; background: #0d0d0d; position: relative; }
+
+    .car-category-tag { 
+      font-family: 'Rajdhani', sans-serif; font-size: 11px; letter-spacing: 5px; 
+      text-transform: uppercase; padding: 6px 16px; display: inline-block; 
+      margin-bottom: 24px; background: #e63946; color: #fff; width: fit-content; 
+    }
+    .car-brand-label { font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 5px; text-transform: uppercase; color: #888; margin-bottom: 12px; }
+    .car-title { font-family: 'Bebas Neue', sans-serif; font-size: 80px; line-height: 0.9; letter-spacing: 2px; margin-bottom: 24px; }
+    .car-title span { color: #c8a96e; }
+    .car-tagline { font-size: 15px; line-height: 1.8; color: #888; max-width: 400px; margin-bottom: 40px; }
+    .car-price { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: #c8a96e; letter-spacing: 2px; }
+    .car-price-label { font-family: 'Rajdhani', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #888; margin-bottom: 6px; }
+    
+    .car-hero-svg { 
+      width: 100%; height: 100%; object-fit: contain;
+      object-position: center; display: block; 
+    }
+
+    /* KEY STATS */
+    .key-stats { display: flex; flex-wrap: wrap; background: #161618; border-top: 1px solid #2a2a2e; border-bottom: 1px solid #2a2a2e; }
+    .stat-block { flex: 1; min-width: 150px; padding: 40px 20px; border-right: 1px solid #2a2a2e; text-align: center; }
+    .stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: #c8a96e; line-height: 1; }
+    .stat-unit { font-size: 16px; color: #e8cc9a; margin-left: 4px; }
+    .stat-name { font-family: 'Rajdhani', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #888; margin-top: 6px; }
+
+    /* SPECS */
+    .specs-section { display: flex; flex-wrap: wrap; gap: 2px; padding: 80px 60px; }
+    .specs-col { flex: 1; min-width: 300px; background: #111214; padding: 40px; }
+    .specs-title { font-family: 'Bebas Neue', sans-serif; font-size: 40px; margin-bottom: 30px; }
+    .spec-row { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid #2a2a2e; }
+    .spec-key { font-family: 'Rajdhani', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #888; }
+    .spec-val { font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700; color: #f4f2ee; }
+
+    /* FEATURES */
+    .features-section { padding: 80px 60px; background: #0d0d0d; }
+    .features-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; margin-bottom: 40px; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .feature-card { background: #111214; padding: 30px; }
+    .feature-icon { font-size: 32px; margin-bottom: 15px; }
+    .feature-name { font-family: 'Rajdhani', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+    .feature-desc { font-size: 13px; line-height: 1.6; color: #888; }
+
+    /* CTA */
+    .cta-section { padding: 80px 20px; text-align: center; background: #111214; border-top: 1px solid #2a2a2e; }
+    .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: 60px; margin-bottom: 16px; }
+    .cta-sub { font-size: 15px; color: #888; margin-bottom: 40px; }
+    .btn-gold { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #050505; background: #c8a96e; padding: 15px 40px; text-decoration: none; margin: 10px; display: inline-block; }
+    .btn-outline { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #f4f2ee; border: 1px solid #2a2a2e; padding: 15px 40px; text-decoration: none; margin: 10px; display: inline-block; }
+
+    /* --- MODAL CSS --- */
+/* --- MINIMAL MODAL CSS --- */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+.modal-overlay.active { display: flex; }
+.modal-content { background: #111; border: 1px solid #c8a96e; padding: 40px; width: 100%; max-width: 450px; position: relative; animation: slideUp 0.3s ease; }
+@keyframes slideUp { from{transform:translateY(20px);opacity:0;} to{transform:none;opacity:1;} }
+.modal-close { position: absolute; top: 15px; right: 20px; font-size: 30px; color: #888; cursor: pointer; }
+.modal-close:hover { color: #c8a96e; }
+.modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: #fff; }
+.modal-subtitle { font-family: 'Rajdhani', sans-serif; color: #c8a96e; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; font-size: 14px; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-family: 'Rajdhani', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 8px; }
+.form-group input { width: 100%; background: #050505; border: 1px solid #2a2a2e; color: #fff; padding: 12px 15px; font-family: 'Barlow', sans-serif; font-size: 16px; outline: none; }
+.form-group input:focus { border-color: #c8a96e; }
+.form-submit { width: 100%; cursor: pointer; border: none; margin-top: 10px; }
+.form-success { display: none; text-align: center; padding: 30px 0; }
+.form-success h3 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #c8a96e; margin-bottom: 10px; }
+.form-success p { color: #888; line-height: 1.6; }
+    /* FOOTER */
+    footer { background: #0d0d0d; border-top: 1px solid #2a2a2e; padding: 30px 60px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 5px; color: #c8a96e; }
+    .footer-copy { font-family: 'Rajdhani', sans-serif; font-size: 11px; letter-spacing: 2px; color: #888; }
+
+    @media(max-width:768px){
+      nav { padding: 15px 20px; }
+      .car-hero-left, .specs-section, .features-section { padding: 40px 20px; }
+      footer { flex-direction: column; gap: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="indimp.html">LOTUS<span> CARS</span></a>
+  <a class="nav-back" href="indimp.html">← Back to Collection</a>
+</nav>
+
+<div class="car-hero">
+  <div class="car-hero-left">
+    <div id="cat-tag" class="car-category-tag"></div>
+    <div class="car-brand-label">Lotus Cars</div>
+    <h1 id="car-title" class="car-title"></h1>
+    <p id="car-tagline" class="car-tagline"></p>
+    <div>
+      <div class="car-price-label">Starting at</div>
+      <div id="car-price" class="car-price"></div>
+    </div>
+  </div>
+  <div class="car-hero-right">
+    <div class="car-hero-bg-grid"></div>
+    <img id="car-img" class="car-hero-svg" src="" alt="Lotus Car">
+  </div>
+</div>
+
+<div class="key-stats">
+  <div class="stat-block">
+    <div class="stat-val" id="stat-power">—</div>
+    <div class="stat-name">Horsepower</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-val" id="stat-torque">—</div>
+    <div class="stat-name">Torque (Nm)</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-val" id="stat-accel">—<span class="stat-unit">s</span></div>
+    <div class="stat-name">0–100 km/h</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-val" id="stat-top">—</div>
+    <div class="stat-name">Top Speed (km/h)</div>
+  </div>
+</div>
+
+<section class="specs-section">
+  <div class="specs-col">
+    <div class="specs-title">Engine &amp; Performance</div>
+    <div id="specs-engine"></div>
+  </div>
+  <div class="specs-col">
+    <div class="specs-title">Dimensions &amp; Weight</div>
+    <div id="specs-dims"></div>
+  </div>
+</section>
+
+<section class="features-section">
+  <div class="features-title">Signature Features</div>
+  <div class="features-grid" id="features-grid"></div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-label" style="color:#c8a96e; font-family:'Rajdhani'; letter-spacing:3px; font-size:12px;">Own the Legend</div>
+  <div class="cta-title" id="cta-car-name">—</div>
+  <p class="cta-sub">Experience it in person at our Mumbai showroom. Book a private test drive today.</p>
+  <div class="cta-actions">
+    <a class="btn-gold" href="#" id="bookBtn">Book Test Drive</a>
+    <a class="btn-outline" href="indimp.html">View All Models</a>
+  </div>
+</section>
+<div id="testDriveModal" class="modal-overlay">
+  <div class="modal-content">
+    <span class="modal-close" id="closeModal">&times;</span>
+    <h2 class="modal-title">Book a Test Drive</h2>
+    <p class="modal-subtitle" id="modalCarName">Lotus</p>
+    
+    <form id="testDriveForm">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="tdName" placeholder="Enter your full name" required>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="tdEmail" placeholder="name@example.com" required>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="tdPhone" placeholder="10-digit mobile number" required>
+      </div>
+      <div class="form-group">
+        <label>Preferred Date</label>
+        <input type="date" id="tdDate" required>
+      </div>
+      <button type="submit" class="btn-gold form-submit">Confirm Booking</button>
+    </form>
+
+    <div id="formSuccess" class="form-success">
+      <h3>Request Received</h3>
+      <p>Our concierge will contact you shortly to finalize your test drive slot.</p>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-logo">LOTUS<span style="color:#f4f2ee;"> CARS</span></div>
+  <div class="footer-copy">© 2026 LOTUS CARS — LOWER PAREL, MUMBAI</div>
+</footer>
+
+<script>
+const cars = {
+  /* ── SPORT ── */
+  'lotus-vortex-rs': {
+    name: 'Vortex RS',
+    img:'imagescars/vortex.png',
+    category: 'sport',
+    tagline: 'The Vortex RS is Lotus Cars\' ultimate track weapon — a mid-engine hypercar that obliterates lap records and redefines what road-legal performance means.',
+    price: '₹7.5 Cr',
+    stats: { power:'1000', torque:'900', accel:'2.5', top:'340' },
+    specsEngine: [
+      ['Engine','4.0L Twin-Turbo V8 Hybrid'],
+      ['Drive System','All-Wheel Drive'],
+      ['Gearbox','8-Speed Dual-Clutch'],
+      ['Fuel Type','Petrol + Electric'],
+      ['Battery','7.4 kWh Li-ion'],
+      ['Electric Range','25 km (pure EV)'],
+    ],
+    specsDims: [
+      ['Length','4,650 mm'],
+      ['Width','2,010 mm'],
+      ['Height','1,185 mm'],
+      ['Wheelbase','2,650 mm'],
+      ['Kerb Weight','1,570 kg'],
+      ['Fuel Tank','68 L'],
+    ],
+    features: [
+      { icon:'🏎️', name:'Active Aerodynamics', desc:'Electronically controlled front splitter and rear wing adjust in real-time for maximum downforce or minimum drag.' },
+      { icon:'⚡', name:'Hybrid KERS', desc:'Kinetic energy recovery system adds instant torque-fill from twin electric motors on the front axle.' },
+      { icon:'🎮', name:'Race Drive Modes', desc:'Six configurable drive modes from Comfort to Track+, with individual damper, throttle and stability control tuning.' },
+    ],
+    color: '#cc2200',
+    gradBg: 'linear-gradient(135deg,#1a0505,#0d0000)',
+  },
+  'lotus-zenith-gt': {
+    name: 'Zenith GT',
+    img:'imagescars/zenithcg.png',
+    category: 'sport',
+    tagline: 'Raw, angular, alive. The Zenith GT channels pure supercar aggression into a naturally aspirated V10 experience you can feel in your spine.',
+    price: '₹3.9 Cr',
+    stats: { power:'640', torque:'600', accel:'2.9', top:'325' },
+    specsEngine: [
+      ['Engine','5.2L Naturally Aspirated V10'],
+      ['Drive System','All-Wheel Drive'],
+      ['Gearbox','7-Speed LDF Dual-Clutch'],
+      ['Fuel Type','Petrol'],
+      ['Max RPM','8,500 rpm'],
+      ['Emissions','Euro 6d'],
+    ],
+    specsDims: [
+      ['Length','4,459 mm'],
+      ['Width','1,924 mm'],
+      ['Height','1,165 mm'],
+      ['Wheelbase','2,620 mm'],
+      ['Kerb Weight','1,422 kg'],
+      ['Fuel Tank','61 L'],
+    ],
+    features: [
+      { icon:'🔊', name:'Acoustic V10 Symphony', desc:'An unfiltered, spine-tingling V10 soundtrack delivered through a tuned titanium exhaust system.' },
+      { icon:'🦅', name:'Carbon Fibre Chassis', desc:'Full forged carbon monocoque keeps the Zenith GT featherlight while providing exceptional torsional rigidity.' },
+      { icon:'👁️', name:'Senso Steering', desc:'Patented torque-vectoring rear differential combines with magnetic dampers for razor-sharp, tactile steering feedback.' },
+    ],
+    color: '#e8c000',
+    gradBg: 'linear-gradient(135deg,#0d0d00,#1a1500)',
+  },
+  'lotus-apex-s': {
+    name: 'Apex S',
+    img:'imagescars/apexc.png',
+    category: 'sport',
+    tagline: 'Precision crafted for drivers who demand more. The Apex S is the perfect marriage of everyday usability and weekend track day excellence.',
+    price: '₹2.3 Cr',
+    stats: { power:'510', torque:'530', accel:'3.4', top:'318' },
+    specsEngine: [
+      ['Engine','4.0L Flat-Six Naturally Aspirated'],
+      ['Drive System','Rear-Wheel Drive'],
+      ['Gearbox','7-Speed PDK'],
+      ['Fuel Type','Petrol'],
+      ['Max RPM','9,000 rpm'],
+      ['Cooling','Rear-mounted dry-sump'],
+    ],
+    specsDims: [
+      ['Length','4,523 mm'],
+      ['Width','1,852 mm'],
+      ['Height','1,279 mm'],
+      ['Wheelbase','2,457 mm'],
+      ['Kerb Weight','1,418 kg'],
+      ['Fuel Tank','64 L'],
+    ],
+    features: [
+      { icon:'🏁', name:'Track Pack Ready', desc:'Includes roll cage mounting points, lightweight bucket seats, and a Weissach-spec rear wing for serious track use.' },
+      { icon:'🔧', name:'Magnesium Roof', desc:'One-piece magnesium roof panel lowers the centre of gravity for an even more agile, driver-focused feel.' },
+      { icon:'📡', name:'Telemetry Suite', desc:'On-board lap timer and data logger with live telemetry streaming to the Lotus Cars companion app.' },
+    ],
+    color: '#e0e0e0',
+    gradBg: 'linear-gradient(135deg,#080810,#101018)',
+  },
+
+  /* ── LUXURY ── */
+  'lotus-celestia': {
+    name: 'Celestia',
+    img:'imagescars/celestiacg.png',
+    category: 'luxury',
+    tagline: 'The Celestia is the pinnacle of automotive luxury — a long-wheelbase grand tourer swathed in hand-stitched leather, whispering silence and effortless power.',
+    price: '₹9.5 Cr',
+    stats: { power:'563', torque:'900', accel:'5.1', top:'250' },
+    specsEngine: [
+      ['Engine','6.75L Twin-Turbo V12'],
+      ['Drive System','Rear-Wheel Drive'],
+      ['Gearbox','8-Speed Automatic ZF'],
+      ['Fuel Type','Petrol'],
+      ['Self-Levelling','Air Suspension'],
+      ['Noise Level','18 dB interior'],
+    ],
+    specsDims: [
+      ['Length','5,762 mm'],
+      ['Width','2,018 mm'],
+      ['Height','1,646 mm'],
+      ['Wheelbase','3,552 mm'],
+      ['Kerb Weight','2,560 kg'],
+      ['Fuel Tank','82 L'],
+    ],
+    features: [
+      { icon:'🌟', name:'Starlight Headliner', desc:'4,096 hand-set fibre-optic lights create a personalised constellation ceiling in the rear cabin.' },
+      { icon:'🪵', name:'Bespoke Interior', desc:'Hand-polished open-pore walnut, Rolls-grade leather and 48 exterior paint options crafted to your exact specification.' },
+      { icon:'🔇', name:'Acoustic Cocoon', desc:'Triple-laminated glass, 130 kg of sound insulation and active noise cancellation deliver unmatched interior serenity.' },
+    ],
+    color: '#1a1a2e',
+    gradBg: 'linear-gradient(135deg,#0a0a0f,#050510)',
+  },
+  'lotus-imperiale': {
+    name: 'Imperiale',
+    img:'imagescars/imperialecg.png',
+    category: 'luxury',
+    tagline: 'Majestic in presence, thunderous in performance. The Imperiale is the grand touring coupé that refuses to choose between indulgence and speed.',
+    price: '₹3.9 Cr',
+    stats: { power:'659', torque:'900', accel:'3.6', top:'333' },
+    specsEngine: [
+      ['Engine','6.0L W12 Twin-Turbo'],
+      ['Drive System','All-Wheel Drive'],
+      ['Gearbox','8-Speed Dual-Clutch'],
+      ['Fuel Type','Petrol'],
+      ['Air Suspension','3-Chamber Adaptive'],
+      ['Drive Modes','Comfort / Sport / Custom'],
+    ],
+    specsDims: [
+      ['Length','4,850 mm'],
+      ['Width','1,978 mm'],
+      ['Height','1,405 mm'],
+      ['Wheelbase','2,851 mm'],
+      ['Kerb Weight','2,244 kg'],
+      ['Fuel Tank','90 L'],
+    ],
+    features: [
+      { icon:'🏺', name:'Diamond Knurling', desc:'Handcrafted aluminium controls finished with precision diamond-turn knurling — a signature touch of artisanal craft.' },
+      { icon:'💺', name:'Airline Rear Seats', desc:'Massaging, ventilated rear seats with 22 adjustment positions and integrated calf rests for long-haul comfort.' },
+      { icon:'🎵', name:'Naim for Lotus Audio', desc:'18-speaker, 2,200-watt bespoke Naim audio system engineered to the precise acoustics of the Imperiale cabin.' },
+    ],
+    color: '#1a3a1a',
+    gradBg: 'linear-gradient(135deg,#050f05,#0a150a)',
+  },
+  'lotus-aurum': {
+    name: 'Aurum',
+    img:'imagescars/aurumcg.png',
+    category: 'luxury',
+    tagline: 'The Aurum long-wheelbase sedan sets a new benchmark in chauffeur-driven luxury — an armchair on wheels with a twin-turbo heart.',
+    price: '₹2.6 Cr',
+    stats: { power:'621', torque:'1000', accel:'4.5', top:'260' },
+    specsEngine: [
+      ['Engine','4.0L Biturbo V8'],
+      ['Drive System','All-Wheel Drive 4MATIC+'],
+      ['Gearbox','9-Speed MCT Speedshift'],
+      ['Fuel Type','Petrol'],
+      ['Mild Hybrid','48V EQ Boost'],
+      ['Emissions','Euro 6d TEMP'],
+    ],
+    specsDims: [
+      ['Length','5,453 mm'],
+      ['Width','1,921 mm'],
+      ['Height','1,503 mm'],
+      ['Wheelbase','3,396 mm'],
+      ['Kerb Weight','2,395 kg'],
+      ['Fuel Tank','76 L'],
+    ],
+    features: [
+      { icon:'🛋️', name:'Executive Rear Suite', desc:'Reclining rear seats with fold-out footrests, rear-seat entertainment screens and a refrigerated compartment.' },
+      { icon:'✨', name:'Two-Tone Paintwork', desc:'Exclusive two-tone exterior finish with hand-polished chrome divider strip — a hallmark of the Aurum identity.' },
+      { icon:'🧭', name:'Augmented HUD', desc:'Full-colour augmented reality head-up display overlays navigation arrows directly on the road view ahead.' },
+    ],
+    color: '#2a0a0a',
+    gradBg: 'linear-gradient(135deg,#0a0505,#150a0a)',
+  },
+
+  /* ── MID-RANGE ── */
+  'lotus-stratos': {
+    name: 'Stratos',
+    img:'imagescars/Stratosccg.png',
+    category: 'mid',
+    tagline: 'The Stratos packs genuine supercar pace into a driver-focused coupé you can use every single day — brutal acceleration, beautiful proportions.',
+    price: '₹1.4 Cr',
+    stats: { power:'510', torque:'650', accel:'3.9', top:'290' },
+    specsEngine: [
+      ['Engine','3.0L TwinPower Turbo I6'],
+      ['Drive System','Rear-Wheel Drive'],
+      ['Gearbox','8-Speed M Steptronic'],
+      ['Fuel Type','Petrol'],
+      ['Overboost','+50 Nm for 10 sec'],
+      ['Cooling','Water-cooled intercooler'],
+    ],
+    specsDims: [
+      ['Length','4,794 mm'],
+      ['Width','1,887 mm'],
+      ['Height','1,393 mm'],
+      ['Wheelbase','2,857 mm'],
+      ['Kerb Weight','1,725 kg'],
+      ['Fuel Tank','59 L'],
+    ],
+    features: [
+      { icon:'🏎️', name:'M Carbon Bucket Seats', desc:'Full carbon-fibre shell sports seats with Merino leather bolsters, saving 7 kg over standard seats.' },
+      { icon:'🎯', name:'M Traction Control', desc:'Ten-stage DSC system lets drivers dial in exactly how much intervention they want on the limit.' },
+      { icon:'📱', name:'Lotus Live Cockpit', desc:'Dual 12.3-inch curved displays with wireless Apple CarPlay, Android Auto and real-time performance telemetry.' },
+    ],
+    color: '#1a3a5a',
+    gradBg: 'linear-gradient(135deg,#050a15,#080d1a)',
+  },
+  'lotus-crest': {
+    name: 'Crest',
+    img:'imagescars/crestcg.png',
+    category: 'mid',
+    tagline: 'A sports estate that does everything brilliantly. The Crest carries five in supreme comfort, then embarrasses pure sports cars on a Sunday morning.',
+    price: '₹1.7 Cr',
+    stats: { power:'600', torque:'800', accel:'3.6', top:'305' },
+    specsEngine: [
+      ['Engine','4.0L TFSI Twin-Turbo V8'],
+      ['Drive System','Quattro All-Wheel Drive'],
+      ['Gearbox','8-Speed Tiptronic S'],
+      ['Fuel Type','Petrol'],
+      ['Cylinder Tech','Cylinder-on-Demand'],
+      ['48V Mild Hybrid','Yes — belt alternator'],
+    ],
+    specsDims: [
+      ['Length','4,995 mm'],
+      ['Width','1,951 mm'],
+      ['Height','1,487 mm'],
+      ['Wheelbase','2,924 mm'],
+      ['Kerb Weight','2,075 kg'],
+      ['Boot Space','565 L'],
+    ],
+    features: [
+      { icon:'🚀', name:'Launch Control', desc:'Perfectly controlled all-wheel-drive launches to 100 km/h in 3.6 seconds, every single time, regardless of conditions.' },
+      { icon:'🔈', name:'RS Sport Exhaust', desc:'Active valve exhaust with sport and dynamic modes — a thundering bark on startup, effortlessly quiet when cruising.' },
+      { icon:'🧲', name:'Adaptive Air Suspension', desc:'Predictive active suspension scans the road ahead with a front camera and pre-adjusts each corner individually.' },
+    ],
+    color: '#3a2010',
+    gradBg: 'linear-gradient(135deg,#0f0a05,#181005)',
+  },
+  'lotus-rally-r': {
+    name: 'Rally R',
+    img:'imagescars/rallyrcg.png',
+    category: 'mid',
+    tagline: 'Born on the rally stage. The Rally R distils decades of motorsport DNA into a turbocharged coupé with the most addictive chassis in its class.',
+    price: '₹88 L',
+    stats: { power:'387', torque:'500', accel:'4.3', top:'280' },
+    specsEngine: [
+      ['Engine','3.0L Turbocharged I6'],
+      ['Drive System','Rear-Wheel Drive'],
+      ['Gearbox','8-Speed Sport Automatic'],
+      ['Fuel Type','Petrol'],
+      ['Compressor','Twin-Scroll Turbo'],
+      ['Valve System','Dual VVT-i'],
+    ],
+    specsDims: [
+      ['Length','4,380 mm'],
+      ['Width','1,865 mm'],
+      ['Height','1,290 mm'],
+      ['Wheelbase','2,470 mm'],
+      ['Kerb Weight','1,570 kg'],
+      ['Fuel Tank','50 L'],
+    ],
+    features: [
+      { icon:'🌀', name:'Active Differential', desc:'Electronically controlled limited-slip rear differential allows throttle-on oversteer with surgical precision.' },
+      { icon:'🎨', name:'Matte War Paint', desc:'Exclusive matte Heritage paint options with contrasting gloss roof — a nod to the Rally R\'s motorsport heritage.' },
+      { icon:'📊', name:'Performance Monitor', desc:'Dedicated performance display shows lateral G, braking G, lap times and tyre temperatures in real time.' },
+    ],
+    color: '#3a0a1a',
+    gradBg: 'linear-gradient(135deg,#0a0508,#150810)',
+  },
+};
+
+// 1. Get the requested car from the URL
+const urlParams = new URLSearchParams(window.location.search);
+const currentCarId = urlParams.get('car') || 'lotus-vortex-rs'; // Added fallback to prevent crash
+const currentCar = cars[currentCarId];
+
+// 2. Basic Text Injections
+document.getElementById("cat-tag").innerText = currentCar.category;
+document.getElementById("car-tagline").innerText = currentCar.tagline;
+document.getElementById("car-price").innerText = currentCar.price;
+document.getElementById("cta-car-name").innerText = "Lotus " + currentCar.name;
+
+// Split the name so the second word drops to a new line
+const nameParts = currentCar.name.split(' ');
+const firstWord = nameParts[0];
+const secondWord = nameParts.slice(1).join(' ');
+document.getElementById("car-title").innerHTML = firstWord + "<br><span>" + secondWord + "</span>";
+
+// 3. Image Injection
+document.getElementById("car-img").src = currentCar.img;
+document.getElementById("car-img").alt = currentCar.name;
+document.querySelector('.car-hero-right').style.background = currentCar.gradBg;
+
+// 4. Stats Injection
+document.getElementById("stat-power").innerText = currentCar.stats.power;
+document.getElementById("stat-torque").innerText = currentCar.stats.torque;
+document.getElementById("stat-accel").innerHTML = currentCar.stats.accel + '<span class="stat-unit">s</span>';
+document.getElementById("stat-top").innerText = currentCar.stats.top;
+
+// 5. Specs Injection (Engine)
+let engineHtml = "";
+for (let i = 0; i < currentCar.specsEngine.length; i++) {
+  engineHtml += '<div class="spec-row"><span class="spec-key">' + currentCar.specsEngine[i][0] + '</span><span class="spec-val">' + currentCar.specsEngine[i][1] + '</span></div>';
+}
+document.getElementById("specs-engine").innerHTML = engineHtml;
+
+// 6. Specs Injection (Dimensions)
+let dimsHtml = "";
+for (let i = 0; i < currentCar.specsDims.length; i++) {
+  dimsHtml += '<div class="spec-row"><span class="spec-key">' + currentCar.specsDims[i][0] + '</span><span class="spec-val">' + currentCar.specsDims[i][1] + '</span></div>';
+}
+document.getElementById("specs-dims").innerHTML = dimsHtml;
+
+// 7. Features Injection
+let featuresHtml = "";
+for (let i = 0; i < currentCar.features.length; i++) {
+  let feature = currentCar.features[i];
+  featuresHtml += '<div class="feature-card"><div class="feature-icon">' + feature.icon + '</div><div class="feature-name">' + feature.name + '</div><p class="feature-desc">' + feature.desc + '</p></div>';
+}
+document.getElementById("features-grid").innerHTML = featuresHtml;
+// --- MODAL & FORM LOGIC ---
+const modal = document.getElementById('testDriveModal');
+const bookBtn = document.getElementById('bookBtn');
+const closeModal = document.getElementById('closeModal');
+const form = document.getElementById('testDriveForm');
+const successMsg = document.getElementById('formSuccess');
+
+// 1. Open the Modal
+bookBtn.addEventListener('click', function(e) {
+  e.preventDefault(); // Stops the page from jumping to the top
+  // Dynamically set the car name in the form
+  document.getElementById('modalCarName').innerText = "For Lotus " + currentCar.name;
+  
+  // Reset form to default state
+  form.style.display = 'block';
+  successMsg.style.display = 'none';
+  form.reset();
+  
+  // Show modal
+  modal.classList.add('active');
+});
+
+// 2. Close the Modal (Clicking the X)
+closeModal.addEventListener('click', function() {
+  modal.classList.remove('active');
+});
+
+// 3. Close the Modal (Clicking outside the box)
+window.addEventListener('click', function(e) {
+  if (e.target === modal) {
+    modal.classList.remove('active');
+  }
+});
+
+// 4. Form Validation and Submit
+form.addEventListener('submit', function(e) {
+  e.preventDefault(); // Prevents the page from refreshing
+  
+  // Simple Phone Validation
+  const phoneVal = document.getElementById('tdPhone').value;
+  if (phoneVal.length < 10) {
+    alert("Please enter a valid 10-digit phone number.");
+    return; // Stops the form from submitting
+  }
+
+  // If validation passes, hide form and show success message
+  form.style.display = 'none';
+  successMsg.style.display = 'block';
+});
+</script>
+</body>
+</html>
